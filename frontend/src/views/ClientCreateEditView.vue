@@ -8,54 +8,68 @@
                     </h1>
                     <h1 v-else class="h3"><i class="fa-solid fa-angle-down me-2" />Modifier un client</h1>
                 </div>
-                <div v-if="!isNewClient" class="col text-end">
+                <div v-if="!isNewClient" class="col text-end mb-4">
                     <button @click="onDeleteClient(client)" class="btn btn-outline-danger">
                         <i class="fa-solid fa-trash me-2" />
                         Supprimer le client
                     </button>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col premier">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="firstname" id="firstName" v-model="client.firstName"
+                                        class="form-control" placeholder="Prénom client :"
+                                        :class="{ 'is-invalid': !client.firstName }" />
+                                    <label for="firstName" class="form-label">Prénom client</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="fonction" id="fonction" v-model="client.fonction"
+                                        class="form-control" placeholder="Fonction"
+                                        :class="{ 'is-invalid': !client.fonction }" />
+                                    <label for="fonction" class="form-label">Fonction</label>
+                                </div>
+                                
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="email" id="email" v-model="client.email" class="form-control"
+                                        placeholder="email" :class="{ 'is-invalid': !client.email }" />
+                                    <label for="email" class="form-label">Email</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="companyName" id="companyName" v-model="client.companyName"
+                                        class="form-control" placeholder="Entreprise :"
+                                        :class="{ 'is-invalid': !client.companyName }" />
+                                    <label for="companyName" class="form-label">Entreprise</label>
+                                </div>
+                            </div>
+                            <div class="col deuxieme">
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="lastName" id="lastName" v-model="client.lastName"
+                                        class="form-control" placeholder="Nom client :"
+                                        :class="{ 'is-invalid': !client.lastName }" />
+                                    <label for="firstName" class="form-label">Nom client</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" name="telephone" id="telephone" v-model="client.telephone"
+                                        class="form-control" placeholder="Telephone"
+                                        :class="{ 'is-invalid': !client.telephone }" />
+                                    <label for="telephone" class="form-label">N° de téléphone</label>
+                                </div>
+                            </div>
+                            <div class="col troisieme">
+                                <div class="form-floating mb-3">
+                                    <input type="date" name="date" id="date" class="form-control" placeholder="Date"
+                                        format="yyyy-MM-dd" v-model="client.date" :class="{ 'is-invalid': !client.date }" />
+                                    <label for="date" class="form-label">Émise le</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="alert alert-danger my-3" v-if="error">Un champ requière votre attention</div>
+                    <div class="alert alert-danger my-3" v-if="error">Un champ requière votre attention</div>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-floating mb-3">
-                        <input type="text" name="firstname" id="firstName" v-model="client.firstName" class="form-control"
-                            placeholder="Prénom client :" :class="{ 'is-invalid': !client.firstName }" />
-                        <label for="firstName" class="form-label">Prénom client</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" name="lastName" id="lastName" v-model="client.lastName" class="form-control"
-                            placeholder="Nom client :" :class="{ 'is-invalid': !client.lastName }" />
-                        <label for="firstName" class="form-label">Nom client</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" name="fonction" id="fonction" v-model="client.fonction" class="form-control"
-                            placeholder="Fonction" :class="{ 'is-invalid': !client.fonction }" />
-                        <label for="fonction" class="form-label">Fonction</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" name="telephone" id="telephone" v-model="client.telephone" class="form-control"
-                            placeholder="Telephone" :class="{ 'is-invalid': !client.telephone }" />
-                        <label for="telephone" class="form-label">N° de téléphone</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" name="email" id="email" v-model="client.email" class="form-control"
-                            placeholder="email" :class="{ 'is-invalid': !client.email }" />
-                        <label for="email" class="form-label">Email</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" name="companyName" id="companyName" v-model="client.companyName"
-                            class="form-control" placeholder="Entreprise :"
-                            :class="{ 'is-invalid': !client.companyName }" />
-                        <label for="companyName" class="form-label">Entreprise</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="date" name="date" id="date" class="form-control" placeholder="Date" format="yyyy-MM-dd"
-                            v-model="client.date" :class="{ 'is-invalid': !client.date }" />
-                        <label for="date" class="form-label">Émise le</label>
-                    </div>
+
                 </div>
                 <div>
                     <div class="form-floating mb-3">
@@ -129,15 +143,13 @@ export default {
     mounted() {
         // avant de monter le composant de la vue, on charge les données de la facture à éditer
         this.setClient(this.id),
-        this.getItems()
+            this.getItems()
     },
     computed: {
         ...mapState(useClientStore, {
             loading: 'loading',
             countries: 'countries'
         }),
-        // le formulaire local 'bill' est mappé sur la donnée du store 'item'
-        // attention, pour pouvoir modifier les données d'un état du store (stae), il faut utiliser mpaWritableState plutôt que mapState (qui est pour la lecture seule)
         ...mapWritableState(useClientStore, {
             client: 'item'
         }),
@@ -157,7 +169,6 @@ export default {
         },
     },
     methods: {
-        // pour pouvoir appeler une action du store, il faut l'importer et ici on lui donne un nom local différent 'setBill'
         ...mapActions(useClientStore, {
             setClient: 'setItem',
             updateClient: 'updateItem',

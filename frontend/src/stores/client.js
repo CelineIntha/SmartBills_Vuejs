@@ -1,11 +1,10 @@
 import { clientInterface } from '@/interfaces/client'
 import { defineStore } from 'pinia'
 
-// si je veux interragir avec un autre store, il suffit de l'importer
 
 export const useClientStore = defineStore('client', {
   state: () => ({
-    items: null, //la liste des factures utilisées dans ClientsView
+    items: null,
     item: null, //formulaire d'édition utilisé dans CreateEditClientView
     loading: false, // un simple boolean pour indiquer le chargement des données
     countries: []

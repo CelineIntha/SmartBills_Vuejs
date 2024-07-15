@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td class="align-middle">{{ clientName }}</td>
+        <td class="align-middle"><div class="d-flex align-items-center"><i class="fa-regular fa-user me-2"></i> {{ clientName }}</div></td>
         <td class="align-middle">{{ client.companyName }}</td>
         <td class="align-middle">{{ client.date }}</td>
         <td class="align-middle d-flex gap-2 justify-content-end align-items-center">
